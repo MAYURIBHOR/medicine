@@ -1,4 +1,4 @@
-package main.java.com.pharmacy.repository;
+package com.pharmacy.repository;
 
 import com.pharmacy.model.Alert;
 import com.pharmacy.model.Medicine;

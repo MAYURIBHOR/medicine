@@ -1,4 +1,4 @@
-package main.java.com.pharmacy.service;
+package com.pharmacy.service;
 
 import com.pharmacy.model.Customer;
 import com.pharmacy.repository.CustomerRepository;

@@ -1,4 +1,4 @@
-package main.java.com.pharmacy.controller;
+package com.pharmacy.controller;
 
 import com.pharmacy.service.AlertService;
 import org.springframework.beans.factory.annotation.Autowired;

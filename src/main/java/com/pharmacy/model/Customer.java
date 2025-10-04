@@ -1,13 +1,13 @@
-package main.java.com.pharmacy.model;
+package com.pharmacy.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.task.TaskExecutionProperties.Simple;
+
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -21,5 +21,5 @@ public class Customer {
     private String phone;
 
     @OneToMany(mappedBy = "customer")
-    private List<Sale> sales;
+    private List<Simple> sales;
 }

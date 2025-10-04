@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SupplierService {
+public class SaleService {
     @Autowired
     private SupplierRepository supplierRepository;
 
@@ -22,5 +22,13 @@ public class SupplierService {
 
     public Supplier getSupplier(Long id) {
         return supplierRepository.findById(id).orElse(null);
+    }
+
+    public SupplierRepository getSupplierRepository() {
+        return supplierRepository;
+    }
+
+    public void setSupplierRepository(SupplierRepository supplierRepository) {
+        this.supplierRepository = supplierRepository;
     }
 }

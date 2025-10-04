@@ -1,13 +1,13 @@
-package main.java.com.pharmacy.model;
+package com.pharmacy.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
+import org.springframework.cglib.core.Customizer;
+
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -25,5 +25,5 @@ public class Alert {
     private Medicine medicine;
 
     @ManyToOne
-    private Customer customer;
+    private Customizer customer;
 }

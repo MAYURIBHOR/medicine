@@ -1,4 +1,4 @@
-package main.java.com.pharmacy.service;
+package com.pharmacy.service;
 
 import com.pharmacy.model.Alert;
 import com.pharmacy.model.Medicine;

@@ -1,4 +1,4 @@
-package main.java.com.pharmacy.model;
+package com.pharmacy.model;
 
 import jakarta.persistence.*;
 import lombok.*;

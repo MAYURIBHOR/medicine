@@ -1,27 +1,27 @@
-package main.java.com.pharmacy.model;
+package com.pharmacy.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
 
 @Entity
-@Getter
-@Setter
+@Data // generates getters, setters, toString, equals, hashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Medicine {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String name; // getName() works now
     private String batchNumber;
     private int stock;
     private double price;
-    private LocalDate expiryDate;
+    private LocalDate expiryDate; // getExpiryDate() works now
 
     @ManyToOne
-    private Supplier supplier;
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier; // make sure you have a Supplier entity
 }
