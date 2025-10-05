@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class SupplierService {
+
     @Autowired
     private SupplierRepository supplierRepository;
 
@@ -20,7 +21,8 @@ public class SupplierService {
         return supplierRepository.findAll();
     }
 
-    public Supplier getSupplier(Long id) {
-        return supplierRepository.findById(id).orElse(null);
+    // Fetch supplier by ID safely
+    public Supplier getSupplierById(Long id) {
+        return supplierRepository.findById(id).orElse(null); // return null if not found
     }
 }
