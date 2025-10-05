@@ -1,3 +1,4 @@
+C:\medicine\src\main\java\com\pharmacy\config\SecurityConfig.java
 C:\medicine\src\main\java\com\pharmacy\controller\AlertsController.java
 C:\medicine\src\main\java\com\pharmacy\controller\AuthController.java
 C:\medicine\src\main\java\com\pharmacy\controller\DashboardController.java
@@ -9,6 +10,7 @@ C:\medicine\src\main\java\com\pharmacy\model\Prescription.java
 C:\medicine\src\main\java\com\pharmacy\model\Sale.java
 C:\medicine\src\main\java\com\pharmacy\model\Supplier.java
 C:\medicine\src\main\java\com\pharmacy\model\User.java
+C:\medicine\src\main\java\com\pharmacy\PharmacyApplication.java
 C:\medicine\src\main\java\com\pharmacy\repository\AlertRepository.java
 C:\medicine\src\main\java\com\pharmacy\repository\CustomerRepository.java
 C:\medicine\src\main\java\com\pharmacy\repository\MedicineRepository.java

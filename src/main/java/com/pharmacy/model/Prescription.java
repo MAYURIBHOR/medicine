@@ -21,5 +21,6 @@ public class Prescription {
     private LocalDate dateIssued;
 
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 }

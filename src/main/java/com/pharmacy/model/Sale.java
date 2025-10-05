@@ -7,8 +7,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -22,6 +20,7 @@ public class Sale {
     private String paymentType; // Cash, Card, etc.
 
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToMany
@@ -29,5 +28,6 @@ public class Sale {
     private List<Medicine> medicines;
 
     @ManyToOne
+    @JoinColumn(name = "prescrption_id")
     private Prescription prescription;
 }

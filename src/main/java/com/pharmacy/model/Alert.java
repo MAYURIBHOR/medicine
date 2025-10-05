@@ -5,8 +5,6 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-import org.springframework.cglib.core.Customizer;
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,8 +20,10 @@ public class Alert {
     private boolean sent;
 
     @ManyToOne
+    @JoinColumn(name = "medicine_id")
     private Medicine medicine;
 
     @ManyToOne
-    private Customizer customer;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }

@@ -5,8 +5,6 @@ import lombok.*;
 
 import java.util.List;
 
-import org.springframework.boot.autoconfigure.task.TaskExecutionProperties.Simple;
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,5 +19,5 @@ public class Customer {
     private String phone;
 
     @OneToMany(mappedBy = "customer")
-    private List<Simple> sales;
+    private List<Sale> sales;
 }
