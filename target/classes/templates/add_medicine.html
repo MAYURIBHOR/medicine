@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Medicine</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link your main CSS file/Bootstrap here, adjust the path if necessary -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Basic custom styling to center the form */
+        body { background-color: #f8f9fa; }
+        .container { max-width: 600px; margin-top: 50px; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Add New Medicine to Inventory</h1>
+        
+        <!-- The form action MUST match the @PostMapping("/inventory/save") -->
+        <form th:action="@{/inventory/save}" th:object="${medicine}" method="POST">
+            
+            <!-- 1. Medicine Name (Property: name) -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" th:field="*{name}" class="form-control" required>
+            </div>
+
+            <!-- 2. Batch Number (Property: batchNumber) -->
+            <div class="form-group">
+                <label for="batchNumber">Batch Number:</label>
+                <!-- CRITICAL FIX: Changed from *{batch} to *{batchNumber} -->
+                <input type="text" id="batchNumber" th:field="*{batchNumber}" class="form-control" required>
+            </div>
+
+            <!-- 3. Stock Quantity (Property: stock) -->
+            <div class="form-group">
+                <label for="stock">Stock Quantity:</label>
+                <input type="number" id="stock" th:field="*{stock}" class="form-control" min="0" required>
+            </div>
+            
+            <!-- 4. Price (Property: price) -->
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="number" id="price" th:field="*{price}" class="form-control" step="0.01" required>
+            </div>
+
+            <!-- 5. Expiry Date (Property: expiryDate) -->
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="date" id="expiryDate" th:field="*{expiryDate}" class="form-control" required>
+            </div>
+
+            <!-- 6. Supplier (Property: supplier) -->
+            <!-- Since 'supplier' is a ManyToOne relationship, the form must submit the ID of the Supplier,
+                 NOT the Supplier object itself. We assume the ID property in Supplier is 'id'. 
+                 This is the simplest way to handle the relationship without loading all suppliers. -->
+            <div class="form-group">
+                <label for="supplierId">Supplier ID (Placeholder):</label>
+                <!-- CRITICAL FIX: We bind to the supplier's ID property (supplier.id) -->
+                <!-- NOTE: This is a placeholder. For a real app, this would be a dropdown of suppliers loaded from the DB. -->
+                <input type="number" id="supplierId" th:field="*{supplier.id}" class="form-control" placeholder="Enter Supplier ID">
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Save Medicine</button>
+            <a th:href="@{/inventory}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+
+</body>
+</html>

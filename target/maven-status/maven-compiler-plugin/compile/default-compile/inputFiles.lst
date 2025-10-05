@@ -1,8 +1,12 @@
 C:\medicine\src\main\java\com\pharmacy\config\SecurityConfig.java
 C:\medicine\src\main\java\com\pharmacy\controller\AlertsController.java
 C:\medicine\src\main\java\com\pharmacy\controller\AuthController.java
+C:\medicine\src\main\java\com\pharmacy\controller\CustomerController.java
 C:\medicine\src\main\java\com\pharmacy\controller\DashboardController.java
 C:\medicine\src\main\java\com\pharmacy\controller\InventoryController.java
+C:\medicine\src\main\java\com\pharmacy\controller\PrescriptionController.java
+C:\medicine\src\main\java\com\pharmacy\controller\SalesController.java
+C:\medicine\src\main\java\com\pharmacy\controller\SupplierController.java
 C:\medicine\src\main\java\com\pharmacy\model\Alert.java
 C:\medicine\src\main\java\com\pharmacy\model\Customer.java
 C:\medicine\src\main\java\com\pharmacy\model\Medicine.java

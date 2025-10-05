@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sales & Billing</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include your main CSS/Bootstrap link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="mb-4">Sales & Billing Dashboard</h1>
+
+        <!-- Sales Navigation/Actions -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <a th:href="@{/sales/new}" class="btn btn-success btn-block">Start New Sale</a>
+            </div>
+            <div class="col-md-4">
+                <a th:href="@{/sales/history}" class="btn btn-info btn-block">View Sales History</a>
+            </div>
+            <div class="col-md-4">
+                <a th:href="@{/dashboard}" class="btn btn-secondary btn-block">Back to Dashboard</a>
+            </div>
+        </div>
+
+        <!-- Placeholder for Sales Data Table -->
+        <div class="card">
+            <div class="card-header">
+                Recent Transactions
+            </div>
+            <div class="card-body">
+                <p>Sales data table will appear here.</p>
+                <!-- Th:each loop to display sales records goes here -->
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+

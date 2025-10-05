@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="mb-4">Customer Management</h1>
+
+        <!-- Customer Navigation/Actions -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <a th:href="@{/customers/add}" class="btn btn-success btn-block">Add New Customer</a>
+            </div>
+            <div class="col-md-4">
+                <a th:href="@{/customers/list}" class="btn btn-info btn-block">View All Customers</a>
+            </div>
+            <div class="col-md-4">
+                <a th:href="@{/dashboard}" class="btn btn-secondary btn-block">Back to Dashboard</a>
+            </div>
+        </div>
+
+        <!-- Placeholder for Customer Data Table -->
+        <div class="card">
+            <div class="card-header">
+                Customer List
+            </div>
+            <div class="card-body">
+                <p>Customer data table will appear here.</p>
+                <!-- Th:each loop to display customer records goes here -->
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
