@@ -20,6 +20,9 @@ public class Prescription {
     private String notes;
     private LocalDate dateIssued;
 
+    // *** FIX: ADD THE MISSING STATUS FIELD ***
+    private String status;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;

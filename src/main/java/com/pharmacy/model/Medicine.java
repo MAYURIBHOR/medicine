@@ -3,9 +3,10 @@ package com.pharmacy.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Data // generates getters, setters, toString, equals, hashCode
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -15,13 +16,16 @@ public class Medicine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; // getName() works now
+    private String name;
     private String batchNumber;
     private int stock;
     private double price;
-    private LocalDate expiryDate; // getExpiryDate() works now
+
+    // *** DEFINITIVE FIX: Use ISO standard format for HTML5 input type="date" ***
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate expiryDate;
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
-    private Supplier supplier; // make sure you have a Supplier entity
+    private Supplier supplier;
 }

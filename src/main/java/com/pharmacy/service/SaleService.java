@@ -1,7 +1,7 @@
 package com.pharmacy.service;
 
-import com.pharmacy.model.Supplier;
-import com.pharmacy.repository.SupplierRepository;
+import com.pharmacy.model.Sale; // Assuming you have this model
+import com.pharmacy.repository.SaleRepository; // Assuming you have this repository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,26 +9,21 @@ import java.util.List;
 
 @Service
 public class SaleService {
+
     @Autowired
-    private SupplierRepository supplierRepository;
+    private SaleRepository saleRepository;
 
-    public Supplier saveSupplier(Supplier supplier) {
-        return supplierRepository.save(supplier);
+    /**
+     * FIX: Adds the missing read method required by the controller.
+     */
+    public List<Sale> getAllSales() {
+        return saleRepository.findAll();
     }
 
-    public List<Supplier> getAllSuppliers() {
-        return supplierRepository.findAll();
+    // You will need this later for the save/update functionality
+    public Sale saveSale(Sale sale) {
+        return saleRepository.save(sale);
     }
 
-    public Supplier getSupplier(Long id) {
-        return supplierRepository.findById(id).orElse(null);
-    }
-
-    public SupplierRepository getSupplierRepository() {
-        return supplierRepository;
-    }
-
-    public void setSupplierRepository(SupplierRepository supplierRepository) {
-        this.supplierRepository = supplierRepository;
-    }
+    // ... add more methods later (e.g., getSaleById, deleteSale)
 }

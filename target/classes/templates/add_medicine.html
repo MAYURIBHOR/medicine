@@ -8,26 +8,48 @@
 <body>
 <div class="container mt-5">
     <h1>Add New Medicine</h1>
+    
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
     <form th:action="@{/inventory/save}" th:object="${medicine}" method="POST">
+        
         <div class="form-group">
             <label>Name</label>
             <input type="text" th:field="*{name}" class="form-control" required>
         </div>
+        
         <div class="form-group">
             <label>Batch Number</label>
             <input type="text" th:field="*{batchNumber}" class="form-control" required>
         </div>
+        
         <div class="form-group">
             <label>Stock</label>
             <input type="number" th:field="*{stock}" class="form-control" min="0" required>
         </div>
+        
         <div class="form-group">
             <label>Price</label>
             <input type="number" th:field="*{price}" class="form-control" step="0.01" required>
         </div>
+        
         <div class="form-group">
-            <label>Expiry Date</label>
-            <input type="date" th:field="*{expiryDate}" class="form-control" required>
+            <label>Expiry Date (Format: DD-MM-YYYY)</label>
+            <input type="text" 
+                   th:field="*{expiryDate}" 
+                   th:value="*{expiryDate}"
+                   class="form-control" 
+                   placeholder="e.g., 31-10-2025" 
+                   required>
         </div>
-        <div class="form-group">
-            <label>
+        
+        <button type="submit" class="btn btn-primary">Save Medicine</button>
+        
+        <a th:href="@{/inventory}" class="btn btn-secondary">Cancel</a>
+        
+    </form>
+</div>
+</body>
+</html>

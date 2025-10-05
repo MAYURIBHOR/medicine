@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${pageTitle}">Customer Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="mb-4" th:text="${pageTitle}">Customer Form</h1>
+
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                Customer Details
+            </div>
+            <div class="card-body">
+                
+                <form th:action="@{/customers/save}" method="post" th:object="${customer}">
+                
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="form-group">
+                        <label for="name">Customer Name</label>
+                        <input type="text" th:field="*{name}" class="form-control" id="name" required />
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Name Error</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" th:field="*{email}" class="form-control" id="email" required />
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">Email Error</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" th:field="*{phone}" class="form-control" id="phone" />
+                        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger">Phone Error</span>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <span th:text="${customer.id == null ? 'Save Customer' : 'Update Customer'}">Save Customer</span>
+                        </button>
+                        
+                        <a th:href="@{/customers}" class="btn btn-secondary ml-2">Cancel</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

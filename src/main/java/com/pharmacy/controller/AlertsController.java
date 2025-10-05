@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AlertsController {
-    // ... @Autowired private AlertService alertService;
+    @Autowired
+    private AlertService alertService;
 
     @GetMapping("/alerts")
     public String alerts(Model model) {
-        // model.addAttribute("alerts", alertService.getUnsentAlerts()); // <-- COMMENT
-        // OUT THIS LINE
+        model.addAttribute("alerts", alertService.getUnsentAlerts());
         return "alerts";
     }
 }

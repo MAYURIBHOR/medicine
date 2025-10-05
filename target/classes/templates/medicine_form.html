@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${pageTitle}">Medicine Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="mb-4" th:text="${pageTitle}">Medicine Form</h1>
+
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                Medicine Details
+            </div>
+            <div class="card-body">
+                
+                <form th:action="@{/inventory/save}" method="post" th:object="${medicine}">
+                
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="form-group">
+                        <label for="name">Medicine Name</label>
+                        <input type="text" th:field="*{name}" class="form-control" id="name" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="batchNumber">Batch Number</label>
+                        <input type="text" th:field="*{batchNumber}" class="form-control" id="batchNumber" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="date" th:field="*{expiryDate}" class="form-control" id="expiryDate" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stock">Stock Quantity</label>
+                        <input type="number" th:field="*{stock}" class="form-control" id="stock" required min="0" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="price">Unit Price ($)</label>
+                        <input type="number" th:field="*{price}" class="form-control" id="price" required step="0.01" min="0"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="supplier">Supplier</label>
+                        <select th:field="*{supplier}" class="form-control" id="supplier" required>
+                            <option th:value="null" disabled>-- Select a Supplier --</option>
+                            <option th:each="sup : ${suppliers}" 
+                                    th:value="${sup.id}" 
+                                    th:text="${sup.name}">Supplier Name Placeholder</option>
+                        </select>
+                        <small class="form-text text-muted">Select the source supplier for this medicine.</small>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <span th:text="${medicine.id == null ? 'Save Medicine' : 'Update Medicine'}">Save Medicine</span>
+                        </button>
+                        
+                        <a th:href="@{/inventory}" class="btn btn-secondary ml-2">Cancel</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

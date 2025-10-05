@@ -4,7 +4,6 @@
     <title>Prescriptions Management</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Include your main CSS/Bootstrap link here -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body { background-color: #f8f9fa; }
@@ -16,30 +15,67 @@
     <div class="container">
         <h1 class="mb-4">Prescriptions Management</h1>
 
-        <!-- Prescriptions Navigation/Actions -->
         <div class="row mb-4">
             <div class="col-md-4">
                 <a th:href="@{/prescriptions/verify}" class="btn btn-success btn-block">Verify New Prescription</a>
             </div>
             <div class="col-md-4">
-                <a th:href="@{/prescriptions/list}" class="btn btn-info btn-block">View Pending Prescriptions</a>
+                <a th:href="@{/prescriptions}" class="btn btn-info btn-block">Refresh Prescription List</a>
             </div>
             <div class="col-md-4">
                 <a th:href="@{/dashboard}" class="btn btn-secondary btn-block">Back to Dashboard</a>
             </div>
         </div>
 
-        <!-- Placeholder for Prescriptions Table -->
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-primary text-white">
                 Recent Verification Requests
             </div>
             <div class="card-body">
-                <p>Prescription verification list will appear here.</p>
-                <!-- Th:each loop to display prescriptions goes here -->
+                
+                <div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}">
+                    Error loading prescriptions.
+                </div>
+
+                <div th:if="${prescriptions == null or prescriptions.isEmpty()}" class="alert alert-info" role="alert">
+                    No prescription requests found.
+                </div>
+                
+                <div th:unless="${prescriptions == null or prescriptions.isEmpty()}">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Date Issued</th>
+                                <th>Patient/Customer</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="prescription : ${prescriptions}">
+                                <td th:text="${prescription.id}">P001</td>
+                                <td th:text="${#dates.format(prescription.dateIssued, 'yyyy-MM-dd')}">2023-10-27</td>
+                                
+                                <td th:text="${prescription.customer != null ? prescription.customer.name : 'Unknown Patient'}">Jane Smith</td>
+                                
+                                <td th:text="${prescription.status}">Pending</td>
+                                <td>
+                                    <a th:href="@{'/prescriptions/view/' + ${prescription.id}}" class="btn btn-sm btn-info">View</a>
+                                    <a th:href="@{'/prescriptions/fulfill/' + ${prescription.id}}" class="btn btn-sm btn-success">Fulfill</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+This video demonstrates how to add Bootstrap CSS to a Thymeleaf template, which is the foundational styling for this page. [Add Bootstrap CSS - Thymeleaf Tutorial #4](https://www.youtube.com/watch?v=ak5ur5hK32M)
+http://googleusercontent.com/youtube_content/3

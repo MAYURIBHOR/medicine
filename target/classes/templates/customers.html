@@ -15,30 +15,60 @@
     <div class="container">
         <h1 class="mb-4">Customer Management</h1>
 
-        <!-- Customer Navigation/Actions -->
         <div class="row mb-4">
             <div class="col-md-4">
                 <a th:href="@{/customers/add}" class="btn btn-success btn-block">Add New Customer</a>
             </div>
             <div class="col-md-4">
-                <a th:href="@{/customers/list}" class="btn btn-info btn-block">View All Customers</a>
+                <a th:href="@{/customers}" class="btn btn-info btn-block">Refresh Customer List</a>
             </div>
             <div class="col-md-4">
                 <a th:href="@{/dashboard}" class="btn btn-secondary btn-block">Back to Dashboard</a>
             </div>
         </div>
 
-        <!-- Placeholder for Customer Data Table -->
         <div class="card">
-            <div class="card-header">
-                Customer List
+            <div class="card-header bg-primary text-white">
+                Customer Records
             </div>
             <div class="card-body">
-                <p>Customer data table will appear here.</p>
-                <!-- Th:each loop to display customer records goes here -->
+                
+                <div th:if="${customers.isEmpty()}" class="alert alert-info" role="alert">
+                    No customers found in the database. Click "Add New Customer" to start.
+                </div>
+                
+                <div th:unless="${customers.isEmpty()}">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="customer : ${customers}">
+                                <td th:text="${customer.id}">1</td>
+                                <td th:text="${customer.name}">John Doe</td>
+                                <td th:text="${customer.email}">john.doe@pharmacy.com</td>
+                                <td th:text="${customer.phone}">+1 555-1234</td>
+                                <td>
+                                    <a th:href="@{'/customers/edit/' + ${customer.id}}" class="btn btn-sm btn-warning">Edit</a>
+                                    <a th:href="@{'/customers/delete/' + ${customer.id}}" class="btn btn-sm btn-danger" 
+                                       onclick="return confirm('Are you sure you want to delete this customer?');">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

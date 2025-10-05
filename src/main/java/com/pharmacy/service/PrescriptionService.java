@@ -27,4 +27,11 @@ public class PrescriptionService {
     public Prescription getPrescription(Long id) {
         return prescriptionRepository.findById(id).orElse(null);
     }
+
+    /**
+     * FIX: The missing delete method required by the controller.
+     */
+    public void deletePrescription(Long id) {
+        prescriptionRepository.deleteById(id);
+    }
 }

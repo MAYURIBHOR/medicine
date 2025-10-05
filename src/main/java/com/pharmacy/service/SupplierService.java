@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+// import java.util.Optional; <--- REMOVE THIS LINE
 
 @Service
 public class SupplierService {
@@ -21,8 +22,12 @@ public class SupplierService {
         return supplierRepository.findAll();
     }
 
-    // Fetch supplier by ID safely
     public Supplier getSupplierById(Long id) {
-        return supplierRepository.findById(id).orElse(null); // return null if not found
+        // The Optional is used here implicitly via findById().orElse(null)
+        return supplierRepository.findById(id).orElse(null);
+    }
+
+    public void deleteSupplier(Long id) {
+        supplierRepository.deleteById(id);
     }
 }

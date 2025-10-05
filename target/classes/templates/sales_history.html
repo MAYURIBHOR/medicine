@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sales History</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="mb-4">Full Sales History</h1>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <a th:href="@{/sales}" class="btn btn-info btn-block">Back to Dashboard</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                All Transactions
+            </div>
+            <div class="card-body">
+                
+                <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+                <div th:if="${salesHistory == null or salesHistory.isEmpty()}" class="alert alert-info">
+                    No sales records found in history.
+                </div>
+                
+                <div th:unless="${salesHistory == null or salesHistory.isEmpty()}">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Invoice ID</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Total ($)</th>
+                                <th>Type</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="sale : ${salesHistory}">
+                                <td th:text="${sale.id}">INV001</td>
+                                <td th:text="${#dates.format(sale.saleDate, 'yyyy-MM-dd')}">2025-10-01</td>
+                                <td th:text="${sale.customer != null ? sale.customer.name : 'Walk-in'}">Customer Name</td>
+                                <td th:text="${#numbers.formatDecimal(sale.totalAmount, 0, 'COMMA', 2, 'POINT')}">145.50</td>
+                                <td th:text="${sale.paymentType}">Cash</td>
+                                <td><a th:href="@{'/sales/view/' + ${sale.id}}" class="btn btn-sm btn-outline-info">View</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

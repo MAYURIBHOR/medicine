@@ -14,33 +14,27 @@ public class MedicineService {
     @Autowired
     private MedicineRepository medicineRepository;
 
-    // Get medicines with stock lower than threshold
     public List<Medicine> getLowStockMedicines(int threshold) {
         return medicineRepository.findByStockLessThan(threshold);
     }
 
-    // Get medicines expired before given date
     public List<Medicine> getExpiredMedicines(LocalDate date) {
         return medicineRepository.findByExpiryDateBefore(date);
     }
 
-    // Save or update medicine
     public Medicine saveMedicine(Medicine medicine) {
+        // This is the line that will throw an exception if the DB rejects the save
         return medicineRepository.save(medicine);
     }
 
-    // Get all medicines
     public List<Medicine> getAllMedicines() {
         return medicineRepository.findAll();
     }
 
-    // Get medicine by ID
     public Medicine getMedicineById(Long id) {
-        return medicineRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Medicine not found with id: " + id));
+        return medicineRepository.findById(id).orElse(null);
     }
 
-    // Delete medicine by ID
     public void deleteMedicine(Long id) {
         medicineRepository.deleteById(id);
     }

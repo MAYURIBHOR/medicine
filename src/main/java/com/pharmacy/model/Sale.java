@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Getter // *** ADDED: Generates getter methods (e.g., getId()) ***
+@Setter // *** ADDED: Generates setter methods ***
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
