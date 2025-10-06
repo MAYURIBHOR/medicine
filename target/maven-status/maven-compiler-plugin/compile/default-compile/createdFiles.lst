@@ -13,6 +13,7 @@ com\pharmacy\model\Medicine$MedicineBuilder.class
 com\pharmacy\controller\DashboardController.class
 com\pharmacy\controller\CustomerController.class
 com\pharmacy\model\Sale.class
+com\pharmacy\config\MvcConfig.class
 com\pharmacy\model\Customer$CustomerBuilder.class
 com\pharmacy\model\Medicine.class
 com\pharmacy\repository\UserRepository.class
