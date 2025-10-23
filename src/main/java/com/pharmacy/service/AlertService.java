@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class AlertService {
+
     @Autowired
     private AlertRepository alertRepository;
 
@@ -19,7 +20,4 @@ public class AlertService {
     public List<Alert> getAllAlerts() {
         return alertRepository.findAll();
     }
-
-    // NOTE: If you need getUnsentAlerts() it must be added here and in the repo.
-    // Assuming for now you will rely on getAllAlerts().
 }

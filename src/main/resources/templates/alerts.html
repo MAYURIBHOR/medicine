@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Expiry Alerts</title>
+    <title>Alerts & Notifications</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background: linear-gradient(135deg, #e63946, #f1faee); min-height:100vh; }
+        body { background: linear-gradient(135deg, #e63946, #f1faee); min-height: 100vh; }
     </style>
 </head>
 <body>
@@ -21,28 +21,35 @@
 </nav>
 
 <div class="container">
-    <h2 class="mb-4 text-dark">Expiry Alerts</h2>
-    
+    <h2 class="mb-4 text-dark">Alerts & Notifications</h2>
+
     <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
 
-    <div th:if="${expiryAlerts.isEmpty()}" class="alert alert-success">
-        <strong th:if="${!errorMessage}">No medicines currently expired!</strong>
+    <div th:if="${alerts.isEmpty()}" class="alert alert-success">
+        <strong th:if="${!errorMessage}">No alerts available!</strong>
     </div>
 
-    <div th:unless="${expiryAlerts.isEmpty()}">
+    <div th:unless="${alerts.isEmpty()}">
         <table class="table table-bordered table-light">
-            <thead>
-            <tr class="table-danger">
-                <th>Medicine Name</th>
-                <th>Batch Number</th>
-                <th>Expiry Date</th>
-                <th>Stock Left</th>
+            <thead class="table-danger">
+            <tr>
+                <th>Type</th>
+                <th>Message</th>
+                <th>Customer</th>
+                <th>Medicine</th>
+                <th>Status</th>
+                <th>Created At</th>
             </tr>
             </thead>
             <tbody>
-                <tr th:each="med : ${expiryAlerts}" class="table-warning">
-                   <td th:text="${med.name}"></td>
-                </tr>
+            <tr th:each="alert : ${alerts}" class="table-warning">
+                <td th:text="${alert.type}"></td>
+                <td th:text="${alert.message}"></td>
+                <td th:text="${alert.customer != null ? alert.customer.name : 'N/A'}"></td>
+                <td th:text="${alert.medicine != null ? alert.medicine.name : 'N/A'}"></td>
+                <td th:text="${alert.sent ? 'Sent' : 'Pending'}"></td>
+                <td th:text="${alert.createdAt != null ? #dates.format(alert.createdAt, 'yyyy-MM-dd HH:mm') : 'N/A'}"></td>
+            </tr>
             </tbody>
         </table>
     </div>

@@ -2,28 +2,26 @@ package com.pharmacy.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Prescription {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String doctorName;
-    private String notes;
     private LocalDate dateIssued;
+    private String medicineList; // Comma-separated list of medicines
+    private String dosageInstructions;
 
-    // *** FIX: ADD THE MISSING STATUS FIELD ***
-    private String status;
-
+    // Linking Prescription to Customer
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id") // This column stores the selected customer
     private Customer customer;
 }

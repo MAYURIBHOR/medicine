@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescriptions Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mb-4 text-center">Prescriptions Management</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <a th:href="@{/prescriptions/add}" class="btn btn-success btn-block">Add New Prescription</a>
+        </div>
+        <div class="col-md-4">
+            <a th:href="@{/prescriptions}" class="btn btn-info btn-block">Refresh Prescription List</a>
+        </div>
+        <div class="col-md-4">
+            <a th:href="@{/dashboard}" class="btn btn-secondary btn-block">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">Prescription Records</div>
+        <div class="card-body">
+
+            <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+            <div th:if="${prescriptions == null or prescriptions.isEmpty()}" class="alert alert-info">
+                No prescriptions found.
+            </div>
+
+            <div th:unless="${prescriptions == null or prescriptions.isEmpty()}">
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Date Issued</th>
+                        <th>Customer Name</th>
+                        <th>Doctor Name</th>
+                        <th>Medicines</th>
+                        <th>Dosage</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="prescription : ${prescriptions}">
+                        <td th:text="${prescription.id}">1</td>
+                        <td th:text="${prescription.dateIssued}">2025-10-23</td>
+                        <td th:text="${prescription.customer != null ? prescription.customer.name : 'N/A'}">John Doe</td>
+                        <td th:text="${prescription.doctorName}">Dr. Patel</td>
+                        <td th:text="${prescription.medicineList}">Paracetamol</td>
+                        <td th:text="${prescription.dosageInstructions}">1 tablet twice daily</td>
+                        <td>
+                            <a th:href="@{'/prescriptions/edit/' + ${prescription.id}}" class="btn btn-sm btn-primary">Edit</a>
+                            <a th:href="@{'/prescriptions/delete/' + ${prescription.id}}" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

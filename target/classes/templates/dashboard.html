@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> <head>
     <meta charset="UTF-8">
     <title>Pharmacy Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,8 +14,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-teal mb-4" style="background-color:#0a9396;">
     <div class="container">
         <a class="navbar-brand" href="/dashboard">
-            <img src="/images/pharmacy-logo.png" alt="Logo" style="width:36px;vertical-align:middle;margin-right:8px;">
-            Pharmacy Management
+          <img th:src="@{/images/logo.png}" alt="Pharmacy Logo" style="width:36px;vertical-align:middle;margin-right:8px;">
+
+    Pharmacy Management
         </a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
@@ -31,11 +31,12 @@
         </div>
     </div>
 </nav>
+
 <div class="container">
     <div class="row g-4">
         <div class="col-md-4">
             <div class="card text-center text-bg-info">
-                <img src="/images/medicine.png" class="card-img-top" alt="Medicines" style="max-height:120px;">
+                <img th:src="@{/images/medicine.png}" class="card-img-top" alt="Medicines" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Inventory</h5>
                     <p class="card-text">View and manage medicine stock levels and expiry.</p>
@@ -45,7 +46,7 @@
         </div>
         <div class="col-md-4">
             <div class="card text-center text-bg-warning">
-                <img src="/images/sale.png" class="card-img-top" alt="Sales" style="max-height:120px;">
+                <img th:src="@{/images/sale.png}" class="card-img-top" alt="Sales" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Sales & Billing</h5>
                     <p class="card-text">Generate bills and track transactions.</p>
@@ -55,7 +56,7 @@
         </div>
         <div class="col-md-4">
             <div class="card text-center text-bg-success">
-                <img src="/images/prescription.png" class="card-img-top" alt="Prescriptions" style="max-height:120px;">
+                <img th:src="@{/images/prescription.png}" class="card-img-top" alt="Prescriptions" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Prescriptions</h5>
                     <p class="card-text">Manage and verify digital prescriptions.</p>
@@ -67,7 +68,7 @@
     <div class="row g-4 mt-2">
         <div class="col-md-4">
             <div class="card text-center text-bg-primary">
-                <img src="/images/customer.png" class="card-img-top" alt="Customers" style="max-height:120px;">
+                <img th:src="@{/images/customer.png}" class="card-img-top" alt="Customers" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Customers</h5>
                     <p class="card-text">Profile and purchase history management.</p>
@@ -77,7 +78,7 @@
         </div>
         <div class="col-md-4">
             <div class="card text-center text-bg-secondary">
-                <img src="/images/supplier.png" class="card-img-top" alt="Suppliers" style="max-height:120px;">
+                <img th:src="@{/images/supplier.png}" class="card-img-top" alt="Suppliers" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Suppliers</h5>
                     <p class="card-text">Manage supplier details and orders.</p>
@@ -87,7 +88,7 @@
         </div>
         <div class="col-md-4">
             <div class="card text-center text-bg-danger">
-                <img src="/images/alert.png" class="card-img-top" alt="Alerts" style="max-height:120px;">
+                <img th:src="@{/images/alert.png}" class="card-img-top" alt="Alerts" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Alerts & Notifications</h5>
                     <p class="card-text">Automatic reminders for stock and refills.</p>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add / Edit Prescription</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { margin-top: 40px; max-width: 700px; }
+        .card { border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 th:text="${prescription.id != null} ? 'Edit Prescription' : 'Add New Prescription'"></h4>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/prescriptions/save}" th:object="${prescription}" method="post">
+
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="form-group">
+                    <label for="customer">Select Customer</label>
+                    <select id="customer" class="form-control" th:field="*{customer.id}" required>
+                        <option value="" disabled selected>Select a customer</option>
+                        <option th:each="cust : ${customers}" 
+                                th:value="${cust.id}" 
+                                th:text="${cust.name}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="doctorName">Doctor Name</label>
+                    <input type="text" id="doctorName" class="form-control" placeholder="Enter doctor name"
+                           th:field="*{doctorName}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dateIssued">Date Issued</label>
+                    <input type="date" id="dateIssued" class="form-control"
+                           th:field="*{dateIssued}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="medicineList">Medicine List</label>
+                    <textarea id="medicineList" class="form-control" placeholder="Enter medicines"
+                              th:field="*{medicineList}" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="dosageInstructions">Dosage Instructions</label>
+                    <textarea id="dosageInstructions" class="form-control" placeholder="Enter dosage instructions"
+                              th:field="*{dosageInstructions}" rows="3"></textarea>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Save Prescription</button>
+                    <a th:href="@{/prescriptions}" class="btn btn-secondary ml-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
