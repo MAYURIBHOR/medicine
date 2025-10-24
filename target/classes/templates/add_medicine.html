@@ -1,55 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add New Medicine</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Add Medicine</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-5">
-    <h1>Add New Medicine</h1>
+<div class="container mt-4">
+    <h2 th:text="${medicine.id == null ? 'Add New Medicine' : 'Edit Medicine'}"></h2>
     
-    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
-        <span th:text="${errorMessage}"></span>
-    </div>
+    <form th:action="@{/medicines/save}" th:object="${medicine}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Medicine Name</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+        </div>
 
-    <form th:action="@{/inventory/save}" th:object="${medicine}" method="POST">
-        
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" th:field="*{name}" class="form-control" required>
+        <div class="mb-3">
+            <label for="batchNumber" class="form-label">Batch Number</label>
+            <input type="text" class="form-control" id="batchNumber" th:field="*{batchNumber}" required>
         </div>
-        
-        <div class="form-group">
-            <label>Batch Number</label>
-            <input type="text" th:field="*{batchNumber}" class="form-control" required>
+
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <input type="number" class="form-control" id="stock" th:field="*{stock}" required>
         </div>
-        
-        <div class="form-group">
-            <label>Stock</label>
-            <input type="number" th:field="*{stock}" class="form-control" min="0" required>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" step="0.01" class="form-control" id="price" th:field="*{price}" required>
         </div>
-        
-        <div class="form-group">
-            <label>Price</label>
-            <input type="number" th:field="*{price}" class="form-control" step="0.01" required>
+
+        <div class="mb-3">
+            <label for="expiryDate" class="form-label">Expiry Date</label>
+            <input type="date" class="form-control" id="expiryDate" th:field="*{expiryDate}" required>
         </div>
-        
-        <div class="form-group">
-            <label>Expiry Date (Format: DD-MM-YYYY)</label>
-            <input type="text" 
-                   th:field="*{expiryDate}" 
-                   th:value="*{expiryDate}"
-                   class="form-control" 
-                   placeholder="e.g., 31-10-2025" 
-                   required>
+
+        <div class="mb-3">
+            <label for="supplier" class="form-label">Supplier</label>
+            <select class="form-control" id="supplier" th:field="*{supplier.id}">
+                <option th:each="sup : ${suppliers}" th:value="${sup.id}" th:text="${sup.name}"></option>
+            </select>
         </div>
-        
-        <button type="submit" class="btn btn-primary">Save Medicine</button>
-        
-        <a th:href="@{/inventory}" class="btn btn-secondary">Cancel</a>
-        
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a th:href="@{/medicines}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

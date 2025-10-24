@@ -14,17 +14,16 @@ public class MedicineService {
     @Autowired
     private MedicineRepository medicineRepository;
 
-    public List<Medicine> getLowStockMedicines(int threshold) {
-        return medicineRepository.findByStockLessThan(threshold);
-    }
+    @Autowired
+    private AlertService alertService;
 
-    public List<Medicine> getExpiredMedicines(LocalDate date) {
-        return medicineRepository.findByExpiryDateBefore(date);
-    }
-
+    /**
+     * Save or update a medicine and automatically generate alerts.
+     */
     public Medicine saveMedicine(Medicine medicine) {
-        // This is the line that will throw an exception if the DB rejects the save
-        return medicineRepository.save(medicine);
+        Medicine savedMedicine = medicineRepository.save(medicine);
+        alertService.checkAndGenerateAlert(savedMedicine); // Automatically generate alerts
+        return savedMedicine;
     }
 
     public List<Medicine> getAllMedicines() {
@@ -37,5 +36,13 @@ public class MedicineService {
 
     public void deleteMedicine(Long id) {
         medicineRepository.deleteById(id);
+    }
+
+    public List<Medicine> getLowStockMedicines(int threshold) {
+        return medicineRepository.findByStockLessThan(threshold);
+    }
+
+    public List<Medicine> getExpiredMedicines(LocalDate date) {
+        return medicineRepository.findByExpiryDateBefore(date);
     }
 }

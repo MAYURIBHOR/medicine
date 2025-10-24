@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -19,22 +18,15 @@ public class AlertsController {
     }
 
     @GetMapping("/alerts")
-    public String alerts(Model model) {
+    public String alertsPage(Model model) {
         try {
-            List<Alert> allAlerts = alertService.getAllAlerts();
-            if (allAlerts == null)
-                allAlerts = Collections.emptyList();
-
-            model.addAttribute("alerts", allAlerts);
+            List<Alert> alerts = alertService.getAllAlerts();
+            model.addAttribute("alerts", alerts);
             model.addAttribute("pageTitle", "Alerts & Notifications");
-
-            return "alerts";
-
         } catch (Exception e) {
-            System.err.println("Error fetching alerts: " + e.getMessage());
-            model.addAttribute("alerts", Collections.emptyList());
-            model.addAttribute("errorMessage", "Failed to load alerts data.");
-            return "alerts";
+            model.addAttribute("alerts", List.of());
+            model.addAttribute("errorMessage", "Failed to load alerts.");
         }
+        return "alerts";
     }
 }

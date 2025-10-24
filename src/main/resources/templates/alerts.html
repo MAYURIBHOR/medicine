@@ -5,11 +5,11 @@
     <title>Alerts & Notifications</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background: linear-gradient(135deg, #e63946, #f1faee); min-height: 100vh; }
+        body { background: #f8f9fa; min-height: 100vh; padding-top: 20px; }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
     <div class="container">
         <a class="navbar-brand" th:href="@{/dashboard}">Pharmacy Management</a>
         <div class="collapse navbar-collapse">
@@ -24,32 +24,29 @@
     <h2 class="mb-4 text-dark">Alerts & Notifications</h2>
 
     <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
-
     <div th:if="${alerts.isEmpty()}" class="alert alert-success">
-        <strong th:if="${!errorMessage}">No alerts available!</strong>
+        No active alerts at the moment.
     </div>
 
     <div th:unless="${alerts.isEmpty()}">
         <table class="table table-bordered table-light">
-            <thead class="table-danger">
-            <tr>
-                <th>Type</th>
-                <th>Message</th>
-                <th>Customer</th>
-                <th>Medicine</th>
-                <th>Status</th>
-                <th>Created At</th>
-            </tr>
+            <thead class="table-secondary">
+                <tr>
+                    <th>Type</th>
+                    <th>Message</th>
+                    <th>Medicine</th>
+                    <th>Customer</th>
+                    <th>Created At</th>
+                </tr>
             </thead>
             <tbody>
-            <tr th:each="alert : ${alerts}" class="table-warning">
-                <td th:text="${alert.type}"></td>
-                <td th:text="${alert.message}"></td>
-                <td th:text="${alert.customer != null ? alert.customer.name : 'N/A'}"></td>
-                <td th:text="${alert.medicine != null ? alert.medicine.name : 'N/A'}"></td>
-                <td th:text="${alert.sent ? 'Sent' : 'Pending'}"></td>
-                <td th:text="${alert.createdAt != null ? #dates.format(alert.createdAt, 'yyyy-MM-dd HH:mm') : 'N/A'}"></td>
-            </tr>
+                <tr th:each="alert : ${alerts}">
+                    <td th:text="${alert.type}"></td>
+                    <td th:text="${alert.message}"></td>
+                    <td th:text="${alert.medicine != null ? alert.medicine.name : 'N/A'}"></td>
+                    <td th:text="${alert.customer != null ? alert.customer.name : 'N/A'}"></td>
+                    <td th:text="${#temporals.format(alert.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+                </tr>
             </tbody>
         </table>
     </div>

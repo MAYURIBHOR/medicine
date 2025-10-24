@@ -6,13 +6,8 @@ import com.pharmacy.service.SupplierService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Collections;
-
-// NOTE: Since you are using java.time.LocalDate, the CustomDateEditor is often unnecessary
-// if the input format is 'yyyy-MM-dd' (HTML standard). However, we include a simpler binding 
-// method just in case, using the ISO standard.
+import java.util.List;
 
 @Controller
 public class InventoryController {
@@ -20,83 +15,61 @@ public class InventoryController {
     private final MedicineService medicineService;
     private final SupplierService supplierService;
 
-    // Use constructor injection for all dependencies
     public InventoryController(MedicineService medicineService, SupplierService supplierService) {
         this.medicineService = medicineService;
         this.supplierService = supplierService;
     }
 
-    // --- READ (List Inventory) ---
-
+    // Show all medicines
     @GetMapping("/inventory")
     public String viewInventory(Model model) {
-        try {
-            model.addAttribute("medicines", medicineService.getAllMedicines());
-            return "inventory"; // Renders inventory.html
-        } catch (Exception e) {
-            System.err.println("CRITICAL ERROR: Failed to load inventory data.");
-            e.printStackTrace();
-            model.addAttribute("medicines", Collections.emptyList());
-            model.addAttribute("errorMessage", "Error loading inventory. Check server logs.");
-            return "inventory";
-        }
+        List<Medicine> medicines = medicineService.getAllMedicines();
+        model.addAttribute("medicines", medicines);
+        return "inventory";
     }
 
-    // --- CREATE/EDIT (Show Form) ---
-
-    // Handles both GET /inventory/add and GET /inventory/edit/{id}
-    @GetMapping({ "/inventory/add", "/inventory/edit/{id}" })
-    public String showMedicineForm(@PathVariable(value = "id", required = false) Long id, Model model) {
-
-        Medicine medicine = (id == null)
-                ? new Medicine()
-                : medicineService.getMedicineById(id);
-
-        if (medicine == null) {
-            // Should not happen if data integrity is maintained, but handles the null case
-            return "redirect:/inventory";
-        }
-
-        model.addAttribute("medicine", medicine);
-        model.addAttribute("pageTitle", (id == null) ? "Add New Medicine" : "Edit Medicine");
-
-        // Pass the list of suppliers for the dropdown menu in the form
+    // Show add form
+    @GetMapping("/inventory/add")
+    public String showAddMedicineForm(Model model) {
+        model.addAttribute("medicine", new Medicine());
+        // If you want supplier dropdown in form:
         model.addAttribute("suppliers", supplierService.getAllSuppliers());
-
-        return "medicine_form"; // Renders medicine_form.html
+        return "add_medicine";
     }
 
-    // --- CREATE/UPDATE (Save Form Data) ---
-
+    // Save medicine (create)
     @PostMapping("/inventory/save")
-    public String saveMedicine(@ModelAttribute("medicine") Medicine medicine, RedirectAttributes ra) {
-
-        try {
-            // Note: Service should handle saving the medicine, including its linked
-            // supplier object
-            medicineService.saveMedicine(medicine);
-            ra.addFlashAttribute("successMessage", "Medicine saved successfully!");
-        } catch (Exception e) {
-            System.err.println("Database error during medicine save:");
-            e.printStackTrace();
-            ra.addFlashAttribute("errorMessage", "Error saving medicine: " + e.getMessage());
-            // Redirect back to the form or the list on failure
-            return "redirect:/inventory";
-        }
-
+    public String saveMedicine(@ModelAttribute("medicine") Medicine medicine) {
+        // If form binds supplier.id only, resolve Supplier if necessary in service or
+        // here.
+        medicineService.saveMedicine(medicine);
         return "redirect:/inventory";
     }
 
-    // --- DELETE ---
-
-    @GetMapping("/inventory/delete/{id}")
-    public String deleteMedicine(@PathVariable("id") Long id, RedirectAttributes ra) {
-        try {
-            medicineService.deleteMedicine(id);
-            ra.addFlashAttribute("successMessage", "Medicine ID " + id + " deleted successfully!");
-        } catch (Exception e) {
-            ra.addFlashAttribute("errorMessage", "Error deleting medicine: " + e.getMessage());
+    // Show edit form
+    @GetMapping("/inventory/edit/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model) {
+        Medicine medicine = medicineService.getMedicineById(id);
+        if (medicine == null) {
+            // handle not found (redirect or show message)
+            return "redirect:/inventory";
         }
+        model.addAttribute("medicine", medicine);
+        model.addAttribute("suppliers", supplierService.getAllSuppliers());
+        return "edit_medicine";
+    }
+
+    // Update medicine (reuse save)
+    @PostMapping("/inventory/update")
+    public String updateMedicine(@ModelAttribute("medicine") Medicine medicine) {
+        medicineService.saveMedicine(medicine);
+        return "redirect:/inventory";
+    }
+
+    // Delete medicine
+    @GetMapping("/inventory/delete/{id}")
+    public String deleteMedicine(@PathVariable("id") Long id) {
+        medicineService.deleteMedicine(id);
         return "redirect:/inventory";
     }
 }

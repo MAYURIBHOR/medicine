@@ -27,7 +27,6 @@ com\pharmacy\model\User$UserBuilder.class
 com\pharmacy\controller\InventoryController.class
 com\pharmacy\model\User.class
 com\pharmacy\repository\MedicineRepository.class
-com\pharmacy\controller\AlertsController.class
 com\pharmacy\controller\PrescriptionController.class
 com\pharmacy\model\Customer.class
 com\pharmacy\model\Alert.class
