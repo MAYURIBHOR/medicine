@@ -26,6 +26,7 @@ C:\medicine\src\main\java\com\pharmacy\repository\SupplierRepository.java
 C:\medicine\src\main\java\com\pharmacy\repository\UserRepository.java
 C:\medicine\src\main\java\com\pharmacy\service\AlertService.java
 C:\medicine\src\main\java\com\pharmacy\service\CustomerService.java
+C:\medicine\src\main\java\com\pharmacy\service\CustomUserDetailsService.java
 C:\medicine\src\main\java\com\pharmacy\service\MedicineService.java
 C:\medicine\src\main\java\com\pharmacy\service\PrescriptionService.java
 C:\medicine\src\main\java\com\pharmacy\service\SaleService.java

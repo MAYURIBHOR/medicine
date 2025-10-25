@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "app_user") // renamed table to avoid conflict
 @Getter
 @Setter
 @NoArgsConstructor
