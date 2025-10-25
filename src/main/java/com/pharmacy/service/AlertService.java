@@ -14,62 +14,59 @@ import java.util.Optional;
 @Service
 public class AlertService {
 
-    private static final int LOW_STOCK_THRESHOLD = 5;
+    private static final int DEFAULT_LOW_STOCK_THRESHOLD = 5;
 
     @Autowired
     private AlertRepository alertRepository;
 
-    /**
-     * Save an alert
-     */
+    // Save alert
     public Alert saveAlert(Alert alert) {
         return alertRepository.save(alert);
     }
 
-    /**
-     * Get all alerts
-     */
+    // Get all alerts
     public List<Alert> getAllAlerts() {
         return alertRepository.findAll();
     }
 
-    /**
-     * Check a medicine and generate expiry or low-stock alerts
-     */
+    // Get only active alerts for dashboard
+    public List<Alert> getActiveAlerts() {
+        return alertRepository.findBySentFalse();
+    }
+
+    // Generate alert for medicine
     public void checkAndGenerateAlert(Medicine medicine) {
         if (medicine == null)
             return;
 
         LocalDate today = LocalDate.now();
 
-        // Check for expiry
+        // EXPIRY alert
         if (medicine.getExpiryDate() != null && medicine.getExpiryDate().isBefore(today)) {
             createAlertIfNotExists(medicine, "EXPIRY",
                     "Medicine " + medicine.getName() + " has expired on " + medicine.getExpiryDate());
         }
 
-        // Check for low stock
-        if (medicine.getStock() <= LOW_STOCK_THRESHOLD) {
+        // LOW STOCK alert
+        Integer stock = medicine.getStock();
+        if (stock != null && stock <= DEFAULT_LOW_STOCK_THRESHOLD) {
             createAlertIfNotExists(medicine, "STOCK_LOW",
-                    "Medicine " + medicine.getName() + " is low in stock (" + medicine.getStock() + ").");
+                    "Medicine " + medicine.getName() + " is low (stock: " + stock + ").");
         }
     }
 
-    /**
-     * Create alert if not already existing
-     */
+    // Helper: create alert if not exists
     private void createAlertIfNotExists(Medicine medicine, String type, String message) {
-        Optional<Alert> existing = alertRepository.findFirstByMedicineAndType(medicine, type);
-
+        Optional<Alert> existing = alertRepository.findByMedicineAndType(medicine, type);
         if (existing.isPresent())
-            return; // skip duplicates
+            return;
 
         Alert alert = Alert.builder()
-                .medicine(medicine)
                 .type(type)
                 .message(message)
                 .createdAt(LocalDateTime.now())
                 .sent(false)
+                .medicine(medicine)
                 .build();
 
         alertRepository.save(alert);

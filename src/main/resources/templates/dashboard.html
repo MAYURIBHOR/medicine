@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"> <head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
     <title>Pharmacy Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background: linear-gradient(135deg, #005f73, #94d2bd); min-height:100vh; }
-        .navbar-brand { font-weight: bold; color: #ee9b00 !important; }
+        .navbar-brand { font-weight: bold; color: #ffd166 !important; text-transform: uppercase; font-size: 1.5rem; }
         .nav-link { color: #fff !important; }
         .card { border-radius: 1rem; }
     </style>
@@ -14,9 +15,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-teal mb-4" style="background-color:#0a9396;">
     <div class="container">
         <a class="navbar-brand" href="/dashboard">
-          <img th:src="@{/images/logo.png}" alt="Pharmacy Logo" style="width:36px;vertical-align:middle;margin-right:8px;">
-
-    Pharmacy Management
+          PHARMACY MANAGEMENT
         </a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
@@ -36,7 +35,6 @@
     <div class="row g-4">
         <div class="col-md-4">
             <div class="card text-center text-bg-info">
-                <img th:src="@{/images/medicine.png}" class="card-img-top" alt="Medicines" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Inventory</h5>
                     <p class="card-text">View and manage medicine stock levels and expiry.</p>
@@ -46,7 +44,6 @@
         </div>
         <div class="col-md-4">
             <div class="card text-center text-bg-warning">
-                <img th:src="@{/images/sale.png}" class="card-img-top" alt="Sales" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Sales & Billing</h5>
                     <p class="card-text">Generate bills and track transactions.</p>
@@ -56,7 +53,6 @@
         </div>
         <div class="col-md-4">
             <div class="card text-center text-bg-success">
-                <img th:src="@{/images/prescription.png}" class="card-img-top" alt="Prescriptions" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Prescriptions</h5>
                     <p class="card-text">Manage and verify digital prescriptions.</p>
@@ -68,7 +64,6 @@
     <div class="row g-4 mt-2">
         <div class="col-md-4">
             <div class="card text-center text-bg-primary">
-                <img th:src="@{/images/customer.png}" class="card-img-top" alt="Customers" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Customers</h5>
                     <p class="card-text">Profile and purchase history management.</p>
@@ -78,7 +73,6 @@
         </div>
         <div class="col-md-4">
             <div class="card text-center text-bg-secondary">
-                <img th:src="@{/images/supplier.png}" class="card-img-top" alt="Suppliers" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Suppliers</h5>
                     <p class="card-text">Manage supplier details and orders.</p>
@@ -88,7 +82,6 @@
         </div>
         <div class="col-md-4">
             <div class="card text-center text-bg-danger">
-                <img th:src="@{/images/alert.png}" class="card-img-top" alt="Alerts" style="max-height:120px;">
                 <div class="card-body">
                     <h5 class="card-title">Alerts & Notifications</h5>
                     <p class="card-text">Automatic reminders for stock and refills.</p>
@@ -98,8 +91,19 @@
         </div>
     </div>
 </div>
+
 <footer class="mt-4 text-center text-muted">
-    &copy; 2025 Pharmacy Management System | Designed by MAYURIBHOR
+    &copy; 2025 Pharmacy Management System
 </footer>
+
+<!-- POP-UP ALERTS -->
+<div th:if="${alerts}" th:each="alert : ${alerts}">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        alert("[[${alert.message}]]");
+        /*]]>*/
+    </script>
+</div>
+
 </body>
 </html>

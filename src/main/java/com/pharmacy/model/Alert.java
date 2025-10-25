@@ -5,20 +5,23 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Data // Generates getters, setters, toString, equals, hashCode
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Alert {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String type; // STOCK_LOW, EXPIRY, etc.
+    private String type; // STOCK_LOW, EXPIRY, PRESCRIPTION_REFILL
     private String message;
     private LocalDateTime createdAt;
+
     private boolean sent;
+
+    // NEW FIELD
+    private boolean active;
 
     @ManyToOne
     @JoinColumn(name = "medicine_id")

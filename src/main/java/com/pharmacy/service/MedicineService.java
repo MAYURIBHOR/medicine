@@ -17,12 +17,9 @@ public class MedicineService {
     @Autowired
     private AlertService alertService;
 
-    /**
-     * Save or update a medicine and automatically generate alerts.
-     */
     public Medicine saveMedicine(Medicine medicine) {
         Medicine savedMedicine = medicineRepository.save(medicine);
-        alertService.checkAndGenerateAlert(savedMedicine); // Automatically generate alerts
+        alertService.checkAndGenerateAlert(savedMedicine);
         return savedMedicine;
     }
 
